@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Detector & Translator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(45deg, #007bff, #6a82fb);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-title,
+        .hero-subtitle {
+            position: relative;
+            z-index: 2;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .container {
+            margin-top: 50px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 30px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        textarea {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin-top: 20px;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .social-icons {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            color: #007bff;
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flag-icon {
+            margin-right: 10px;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        .dark-mode-toggle img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .dark-mode {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .dark-mode h1,
+        .dark-mode label {
+            color: #ffffff;
+        }
+
+        .dark-mode .card {
+            background-color: #495057;
+        }
+
+        .dark-mode .form-control {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .dark-mode .social-icons a {
+            color: #adb5bd;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #6a82fb;
+            border-color: #6a82fb;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <img src="https://image.flaticon.com/icons/png/512/61/61405.png" alt="Toggle Dark Mode" id="darkModeIcon">
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <h1 class="hero-title animate__animated animate__fadeInDown">Language Detector & Translator</h1>
+        <p class="hero-subtitle animate__animated animate__fadeInUp">Detect and translate languages with ease</p>
+    </div>
+
+    <div class="container">
+        <form method="POST" action="/trans">
+            <div class="form-group">
+                <textarea class="form-control" name="text" rows="5" placeholder="Enter text to translate"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="target_lang">Select Target Language:</label>
+                <select class="form-control" name="target_lang">
+                    {% for code, name in languages.items() %}
+                        <option value="{{ code }}">
+                            <span class="flag-icon flag-icon-{{ code }}"></span>{{ name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Translate</button>
+        </form>
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        {% if detected_lang and translation %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4>Detected Language: <span class="text-success">{{ detected_lang }}</span></h4>
+                <h4>Translation:</h4>
+                <p class="border p-3 bg-light">{{ translation }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="social-icons">
+            <a href="https://github.com/Singhrahul2511" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/rahul-kumar-8ab740268/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://x.com/home" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/singhrahul2.0/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@aiwithrahul25" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Show loading spinner on form submit
+        $('form').on('submit', function () {
+            $('#loadingSpinner').show();
+        });
+
+        // Hide loading spinner after delay (simulating translation process)
+        setTimeout(function () {
+            $('#loadingSpinner').hide();
+        }, 2000);
+
+        // Toggle dark mode
+        $('#darkModeIcon').on('click', function () {
+            $('body').toggleClass('dark-mode');
+            var icon = $('body').hasClass('dark-mode') ? 'https://image.flaticon.com/icons/png/512/61/61405.png' : 'https://image.flaticon.com/icons/png/512/61/61407.png';
+            $('#darkModeIcon').attr('src', icon);
+        });
+    </script>
+</body>
+
+</html>
