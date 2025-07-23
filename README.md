@@ -124,7 +124,7 @@ services:
 ![Translation Result](demo/translation.png)
 
 ### File Download Overview
-![File Download](demo/translated_file downloader.png)
+![File Download](demo/tranlated_file downloader.png)
 
 
 ## 🛠️ Built With
