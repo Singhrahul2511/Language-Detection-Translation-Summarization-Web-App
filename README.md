@@ -41,20 +41,39 @@ This is a professional-grade **Flask web application** that allows users to:
 
 
 
-🚀 Local Setup Instructions
-1. Clone the repository
-git clone https://github.com/Singhrahul2511/language-translator-app.git
-cd language-translator-app
-2. (Optional) Create and activate virtual environment
+## 🌐 Live Demo
+
+You can also check the live version here:  
+🔗 [https://indian-startup-analysis-57rq.onrender.com/]
+
+
+
+## 🚀Local Setup Instructions
+
+1. **Clone the repository**
+```bash
+    git clone https://github.com/Singhrahul2511/language-translator-app.git
+    cd language-translator-app
+```
+
+2. **(Optional) Create and activate virtual environment**
+ ```bash
 python -m venv .venv
 .venv\Scripts\activate       # On Windows
 source .venv/bin/activate    # On Linux/Mac
-3. Install required packages
+```
+
+3. **Install required packages**
+ ```bash
 pip install -r requirements.txt -f https://download.pytorch.org/whl/cpu/torch_stable.html
-4. Run the Flask app locally
+```
+
+4. **Run the Flask app locally**
+ ```bash
 python app.py
 Open your browser and go to:
 🔗 http://127.0.0.1:5000
+```
 
 🌐 Deploy to Render (Free Cloud Hosting)
 🛠️ Files required:
@@ -79,9 +98,12 @@ Build command: pip install -r requirements.txt
 
 Start command: gunicorn app:app
 
-📦 Example Procfile
+📦 **Example Procfile**
+ ```bash
 web: gunicorn app:app
-📦 Example render.yaml
+```
+📦 **Example render.yaml**
+ ```bash
 services:
   - type: web
     name: language-translator-app
@@ -91,13 +113,21 @@ services:
     envVars:
       - key: FLASK_ENV
         value: production
-🖼️ Features Demo (Screenshots) (optional)
-You can add images in a /demo folder and link them like:
 
+```
+
+## 🖼️ Features Demo (Screenshots) (optional)
+### Dashboard Overview
 ![Language Detection](demo/lang_detect.png)
+
+### Translation Overview
 ![Translation Result](demo/translation.png)
-![Dark Mode](demo/translated_file downloader.png)
-🛠️ Built With
+
+### File Download Overview
+![File Download](demo/translated_file downloader.png)
+
+
+## 🛠️ Built With
 Flask
 
 scikit-learn
@@ -112,9 +142,13 @@ Bootstrap 4
 
 Font Awesome
 
-👨‍💻 Author
-Rahul Kumar
-📧 aiwithrahul25@gmail.com
-🔗 LinkedIn
-🎥 YouTube: AI with Rahul
+---
 
+## 👨‍💻 Author
+
+**Rahul Kumar**  
+🔗 [LinkedIn](https://www.linkedin.com/in/rahul-kumar-8ab740268/)  
+📧 aiwithrahul25@gmail.com  
+🎥 [YouTube: AI with Rahul](https://www.youtube.com/@aiwithrahul25)
+
+---
