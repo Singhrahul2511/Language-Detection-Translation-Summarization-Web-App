@@ -1,0 +1,22 @@
+# 1. Initialize Git repo in your project folder
+git init
+
+# 2. Add all files
+git add .
+
+# 3. Commit your changes
+git commit -m "Initial commit"
+
+# 4. Link with your GitHub repo
+git remote add origin https://github.com/yourusername/your-repo-name.git
+
+# 5. Push to GitHub
+git push -u origin main
+
+
+
+
+
+git add .
+git commit -m "Your commit message"
+git push origin main
